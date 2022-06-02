@@ -1,6 +1,7 @@
 #include <stdio.h>
 
-/* main - the start of the program
+/* 
+ * main.c
  * print the message
  * return 0
 */
