@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <iostream>
 /**
  * main - prints a message
  * print message
@@ -6,6 +7,6 @@
  */
 int main(void)
 {
-write("and that piece of art is useful\" - Dora Korpar, 2015-10-19\n");
+	std::cout<<"and that piece of art is useful\" - Dora Korpar, 2015-10-19\n"<<std::endl;
 return (1);
 }
