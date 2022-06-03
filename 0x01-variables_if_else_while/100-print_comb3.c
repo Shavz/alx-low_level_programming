@@ -7,21 +7,21 @@
 
 int main(void)
 {
-	int n1 n2;
+	int x, y;
 
-		for (n1 = 48; n1 < 58; n1++)
+		for (x = 48; x < 58; x++)
 		{
-			for (n2 = n1; n2 < 58; n2++)
+			for (y = x; y < 58; y++)
 			{
-				if (n1 == n2)
+				if (x == y)
 				{
 					continue;
 				}
 				
-				putchar(n1);
-				putchar(n2);
+				putchar(x);
+				putchar(y);
 			
-				if (n1 == 56 && n2 == 57)
+				if (x == 56 && y == 57)
 				{
 					break;
 				}
