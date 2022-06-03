@@ -13,7 +13,7 @@ int main(void)
 	{
 		putchar((n % 10) + '0');
 		if (n < 9)
-		{	
+		{
 		putchar(44);
 		putchar(32);
 		}
