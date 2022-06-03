@@ -13,6 +13,7 @@ int main(void)
 	{
 		putchar((n % 10) + '0');
 		putchar(44);
+		putchar(32);
 	}
 	putchar('\n');
 	return (0);
