@@ -5,15 +5,20 @@
  * Return: 0
  */
 
-int main(void)
+int _putchar(char c)
 {
-	char x[] = "_putchar";
-	int n;
+	return (write(1, &c, 1));
+}
 
-	for (n = 0; n <= 8; n++)
-	{
-		_putchar(x[n]);
-	}
+int main()
+{
+	_putchar('_');
+	_putchar('p');
+	_putchar('u');
+	_putchar('t');
+	_putchar('c');
+	_putchar('h');
+	_putchar('a');
+	_putchar('r');
 	_putchar('\n');
-	return (0);
 }
