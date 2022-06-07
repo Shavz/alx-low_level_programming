@@ -35,17 +35,11 @@ int main(void)
 		a = b;
 		b = c;
 		if (z >= 100)
-		{
 			printf("%ld%ld", c, z);
-		}
 		else
-		{
 			printf("%ld0%ld", c, z);
-		}
 		if (n != 98)
-		{
 			printf(", ");
-		}
 		n++;
 	}
 	putchar('\n');
