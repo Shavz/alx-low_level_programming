@@ -7,14 +7,13 @@
 
 int main(void)
 {
-	char *x = "_putchar"
+	char x[] = "_putchar";
+	int n;
 
-		while(*x)
-		{
-			_putchar(*x);
-			x++;
-		}
+	for (n = 0; n <= 8; n++)
+	{
+		_putchar(x[n]);
+	}
 	_putchar('\n');
-
 	return(0);
 }
