@@ -1,6 +1,6 @@
 #include <stdio.h>
 /**
- * main - entry point 
+ * main - entry point
  * print first 50 fibonacci numbers
  * Return: 0
  */
@@ -16,7 +16,7 @@ int main(void)
 		c = a + b;
 		a = b;
 		b = c;
-		printf("%d", c);
+		printf("%ld", c);
 		if (n == 49)
 		{
 			putchar('\n');
