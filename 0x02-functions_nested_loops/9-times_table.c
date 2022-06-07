@@ -29,6 +29,16 @@ void times_table(void)
 					_putchar(' ');
 				}
 			}
+			else 
+			{
+				_putchar ((result / 10) + '0');
+				_putchar ((result % 10) + '0');
+				if (y < 9)
+				{
+					_putchar(',');
+					_putchar(' ');
+				}
+			}
 		}
 		_putchar ('\n');
 	}
