@@ -9,10 +9,24 @@
 
 int main(void)
 {
-	int n;
+	char x[100];
+	int a, b, c;
 
-	srand(time(0));
-	n = rand();
-	printf("%i\n", n);
+	b = 0;
+	c = 0;
+
+	srand(time(NULL));
+	while (b < 2645)
+	{
+		a = rand() % 122;
+		if (a > 32)
+		{
+			x[c++] = a;
+			b += a;
+		}
+	}
+	x[c++] = (2772 - b);
+	x[c] = '\0';
+	printf("%s", x);
 	return (0);
 }
