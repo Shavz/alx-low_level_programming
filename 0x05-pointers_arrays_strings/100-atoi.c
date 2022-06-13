@@ -4,6 +4,7 @@
 /**
  * _atoi - function
  * @s: pointer of parameter
+ * Return: 0
  */
 
 int _atoi(char *s)
@@ -27,5 +28,5 @@ int _atoi(char *s)
 			break;
 		}
 	}
-	return (num *neg);
+	return (num * neg);
 }
