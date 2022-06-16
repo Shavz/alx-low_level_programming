@@ -10,44 +10,36 @@
 
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
-	int a, b, c, l, m, n;
+	int i, j, k, l, m, n;
 
-	for (a = 0; n1[a]; a++)
+	for (i = 0; n1[i]; i++)
 		;
-	for (b = 0; n2[b]; b++)
+	for (j = 0; n2[j]; j++)
 		;
-	if (a > size_r || b > size_r)
-	{
+	if (i > size_r || j > size_r)
 		return (0);
-	}
 	m = 0;
-	for (a -= 1, b -= 1, c = 0; c < size_r - 1; a--, b--, c++)
+	for (i -= 1, j -= 1, k = 0; k < size_r - 1; i--, j--, k++)
 	{
 		n = m;
-		if (a >= 0)
-		{
-			n += n1[a] - '0';
-		}
-		if (b >= 0)
-		{
-			n += n2[b] - '0';
-		}
-		if (a < 0 && b < 0 && n == 0)
+		if (i >= 0)
+			n += n1[i] - '0';
+		if (j >= 0)
+			n += n2[j] - '0';
+		if (i < 0 && j < 0 && n == 0)
 		{
 			break;
 		}
 		m = n / 10;
-		r[c] = n % 10 + '0';
+		r[k] = n % 10 + '0';
 	}
-	r[c] = '\0';
-	if (a >= 0 || b >= 0 || m)
-	{
+	r[k] = '\0';
+	if (i >= 0 || j >= 0 || m)
 		return (0);
-	}
-	for (c -= 1, l = 0; l < c; c--, l++)
+	for (k -= 1, l = 0; l < k; k--, l++)
 	{
-		m = r[c];
-		r[c] = r[l];
+		m = r[k];
+		r[k] = r[l];
 		r[l] = m;
 	}
 	return (r);
