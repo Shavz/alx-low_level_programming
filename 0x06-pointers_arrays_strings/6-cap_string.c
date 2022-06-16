@@ -30,7 +30,7 @@ char *cap_string(char *s)
 				}
 			}
 		}
-		i++;
+		x++;
 	}
 	return (s);
 }
