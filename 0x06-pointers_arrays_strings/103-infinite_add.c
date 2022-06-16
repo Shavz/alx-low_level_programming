@@ -16,10 +16,10 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 	;
 	for (b = 0; n2[b]; b++)
 	;
-		if (a > size_r || b > size_r)
-		{
-			return (0);
-		}
+	if (a > size_r || b > size_r)
+	{
+	return (0);
+	}
 	m = 0;
 	for (a -= 1, b -= 1, c = 0; c < size_r - 1; a--, b--, c++)
 	{
