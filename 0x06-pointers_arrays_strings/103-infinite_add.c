@@ -10,7 +10,7 @@
 
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
-	int a, b, c, x, y, z;
+	int a, b, c, l, m, n;
 
 	for (a = 0; n1[a]; a++)
 	;
@@ -20,10 +20,10 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 		{
 			return (0);
 		}
-	y = 0;
+	m = 0;
 	for (a -= 1, b -= 1, c = 0; c < size_r - 1; a--, b--, c++)
 	{
-		z = y;
+		n = m;
 		if (a >= 0)
 		{
 			n += n1[a] - '0';
@@ -36,19 +36,19 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 		{
 			break;
 		}
-		y = z / 10;
+		m = n / 10;
 		r[c] = n % 10 + '0';
 	}
 	r[c] = '\0';
-	if (a >= 0 || b >= 0 || y)
+	if (a >= 0 || b >= 0 || m)
 	{
 		return (0);
 	}
-	for (c -= 1, x = 0; x < c; c--, x++)
+	for (c -= 1, l = 0; l < c; c--, l++)
 	{
-		y = r[c];
-		r[c] = r[x];
-		r[x] = y;
+		m = r[c];
+		r[c] = r[l];
+		r[l] = m;
 	}
 	return (r);
 }
