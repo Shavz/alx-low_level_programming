@@ -4,7 +4,7 @@
  * @n1: char
  * @n2: char
  * @r: char
- * @size_r :integer
+ * @size_r: int
  * Return: 0
  */
 
