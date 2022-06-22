@@ -24,7 +24,7 @@ int check(int a, int b)
 
 /**
  * is_prime_number - states if number is prime
- * @a: int
+ * @n: int
  * Return: int
  */
 
