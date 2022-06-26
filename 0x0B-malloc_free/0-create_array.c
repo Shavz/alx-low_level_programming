@@ -1,4 +1,6 @@
 #include "main.h"
+#include <stdio.h>
+#include <stdlib.h>
 /**
  * create_array - allocate space for an array
  * @size:unssigned int
@@ -14,7 +16,7 @@ char *create_array(unsigned int size, char c)
 	x = malloc(sizeof(char) * size);
 	if (size == 0 || !x)
 	{
-		return (0);
+		return (NULL);
 	}
 	else
 	{
