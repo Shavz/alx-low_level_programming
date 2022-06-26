@@ -7,7 +7,7 @@
  * Return: int number of words
  */
 
-int wrdcnt(char *s)
+int count(char *s)
 {
 	int i, n = 0;
 
@@ -71,7 +71,7 @@ char **strtow(char *str)
 			j--;
 			if (x[c] == NULL)
 			{
-				for (k = 0; k < ch; k++)
+				for (k = 0; k < c; k++)
 				{
 					free(x[k]);
 				}
