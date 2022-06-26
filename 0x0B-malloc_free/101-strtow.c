@@ -37,11 +37,9 @@ int count(char *s)
 
 char **strtow(char *str)
 {
-	int i, j, k, l, n, c;
+	int i, j, k, l, n = 0, c = 0;
 	char **x;
 
-	n = 0;
-	c = 0;
 	if (str == NULL || *str == '\0')
 		return (NULL);
 	n = count(str);
