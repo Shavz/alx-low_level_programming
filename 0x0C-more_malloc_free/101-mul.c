@@ -2,128 +2,195 @@
 #include <stdio.h>
 #include <stdlib.h>
 /**
- * main - multiplies two positive numbers
- * @argc: argument count
- * @argv: argument vectors
- * Return: 0
+ * get_len - gets the length of a string
+ * @str: sting
+ * Return: string length
  */
-int main(int argc, char *argv[])
-{
-	char *f = argv[1];
-	char *s = argv[2];
 
-	if (argc != 3 || !onlyNumbers(f) || !onlyNumbers(s))
+int get_len(char *str)
+{
+	int len = 0;
+
+	while (*str++)
+	{
+		len++;
+	}
+	return (len);
+}
+
+/**
+ * new_array - creates an array of chars
+ * @size: size of the array to be initialized
+ * Return: pointer to array
+ */
+
+char *new_array(int size)
+{
+	char *array;
+	int index;
+
+	array = malloc(sizeof(char) * size);
+	if (array == NULL)
+		exit(98);
+	for (index = 0; index < (size - 1); index++)
+		array[index] = 'x';
+	array[index] = '\0';
+	return (array);
+}
+
+/**
+ * non_zero - checks string for non zero number
+ * @str: string of numbers
+ * Return: pointer
+ */
+
+char *non_zero(char *str)
+{
+	while (*str && *str == '0')
+	{
+		str++;
+	}
+	return (str);
+}
+
+/**
+ * con_digit - converts digit to int
+ * @c: char to convert
+ * Return: int
+ */
+
+int con_digit(char c)
+{
+	int digit = c - '0';
+
+	if (digit < 0 || digit > 9)
 	{
 		printf("Error\n");
 		exit(98);
 	}
-	if (*f == 48 || *s == 48)
-		printf("0\n");
-	else
-		multiply(s, f);
-	return (0);
+	return (digit);
 }
 
 /**
- * multiply - multiplies two numbers and displays it
- * @f: first "number"
- * @s: second "number"
+ * get_prod - multiplies a string of numbers by a single digit
+ * @prod: store result
+ * @mul: The string of numbers
+ * @digit: The single digit
+ * @zeroes: The necessary number of leading zeroes
  */
-void multiply(char *f, char *s)
-{
-	int i, len1, len2, total, fdigit, sdigit, res = 0, tmp;
-	int *ptr;
 
-	len1 = _strlen(f);
-	len2 = _strlen(s);
-	tmp = len2;
-	total = len1 + len2;
-	ptr = _calloc(sizeof(int), (len1 + len2));
-	for (len1--; len1 >= 0; len1--)
+void get_prod(char *prod, char *mul, int digit, int zeroes)
+{
+	int mul_len, num, tens = 0;
+
+	mul_len = get_len(mul) - 1;
+	mul += mul_len;
+	while (*prod)
 	{
-		fdigit = f[len1] - '0';
-		res = 0;
-		len2 = tmp;
-		for (len2--; len2 >= 0; len2--)
+		*prod = 'x';
+		prod++;
+	}
+	prod--;
+	while (zeroes--)
+	{
+		*prod = '0';
+		prod--;
+	}
+	for (; mul_len >= 0; mul_len--, mul--, prod--)
+	{
+		if (*mul < '0' || *mul > '9')
 		{
-			sdigit = s[len2] - '0';
-			res += ptr[len2 + len1 + 1] + (fdigit * sdigit);
-			ptr[len1 + len2 + 1] = res % 10;
-			res /= 10;
+			printf("Error\n");
+			exit(98);
 		}
-		if (res)
-			ptr[len1 + len2 + 1] = res % 10;
+		num = (*mul - '0') * digit;
+		num += tens;
+		*prod = (num % 10) + '0';
+		tens = num / 10;
 	}
-	while (*ptr == 0)
+	if (tens)
+		*prod = (tens % 10) + '0';
+}
+
+/**
+ * add_num - adds the numbers stored in two strings
+ * @final_prod: final product
+ * @nxt_prod: next product to be added
+ * @nxt_len: length of nxt_prod
+ */
+
+void add_num(char *final_prod, char *nxt_prod, int nxt_len)
+{
+	int num, tens = 0;
+
+	while (*(final_prod + 1))
+		final_prod++;
+	while (*(nxt_prod + 1))
+		nxt_prod++;
+	for (; *final_prod != 'x'; final_prod--)
 	{
-		ptr++;
-		total--;
+		num = (*final_prod - '0') + (*nxt_prod - '0');
+		num += tens;
+		*final_prod = (num % 10) + '0';
+		tens = num / 10;
+		nxt_prod--;
+		nxt_len--;
 	}
-	for (i = 0; i < total; i++)
-		printf("%i", ptr[i]);
-	printf("\n");
-}
-/**
- * onlyNumbers - determines if string has only numbers
- * @c: input string
- * Return: 0 if false, 1 if true
- */
-int onlyNumbers(char *c)
-{
-	while (*c)
+	for (; nxt_len >= 0 && *nxt_prod != 'x'; nxt_len--)
 	{
-		if (*c < '0' || *c > '9')
-			return (0);
-		c++;
+		num = (*nxt_prod - '0');
+		num += tens;
+		*final_prod = (num % 10) + '0';
+		tens = num / 10;
+		final_prod--;
+		nxt_prod--;
 	}
-	return (1);
+	if (tens)
+		*final_prod = (tens % 10) + '0';
 }
 
 /**
- * _strlen - returns the length of a string
- * @s: string s
- * Return: length of string
+ * main - Multiplies two positive numbers
+ * @argv: The number of arguments passed to the program
+ * @argc: An array of pointers to the arguments
+ * Return: 0
  */
-int _strlen(char *s)
+
+int main(int argc, char *argv[])
 {
-	char *p = s;
+	char *final_prod, *nxt_prod;
+	int size, index, digit, zeroes = 0;
 
-	while (*s)
-		s++;
-	return (s - p);
-}
-
-/**
- * _memset - fills memory with a constant byte
- * @s: memory area
- * @b: constant byte
- * @n: bytes of the memory area
- * Return: pointer to the memory area s
- */
-char *_memset(char *s, char b, unsigned int n)
-{
-	char *ptr = s;
-
-	while (n--)
-		*s++ = b;
-	return (ptr);
-}
-
-/**
- * _calloc - allocates memory for an array, using malloc
- * @nmemb: number of elements of pointer
- * @size: size of each member
- * Return: pointer of allocated memory
- */
-void *_calloc(unsigned int nmemb, unsigned int size)
-{
-	void *ptr;
-
-	if (!nmemb || !size)
-		return (NULL);
-	ptr = malloc(size * nmemb);
-	if (!ptr)
-		return (NULL);
-	_memset(ptr, 0, size * nmemb);
-	return (ptr);
+	if (argc != 3)
+	{
+		printf("Error\n");
+		exit(98);
+	}
+	if (*(argv[1]) == '0')
+		argv[1] = non_zero(argv[1]);
+	if (*(argv[2]) == '0')
+		argv[2] = non_zero(argv[2]);
+	if (*(argv[1]) == '\0' || *(argv[2]) == '\0')
+	{
+		printf("0\n");
+		return (0);
+	}
+	size = get_len(argv[1]) + get_len(argv[2]);
+	final_prod = new_array(size + 1);
+	nxt_prod = new_array(size + 1);
+	for (index = get_len(argv[2]) - 1; index >= 0; index--)
+	{
+		digit = con_digit(*(argv[2] + index));
+		get_prod(nxt_prod, argv[1], digit, zeroes++);
+		add_num(final_prod, nxt_prod, size - 1);
+	}
+	for (index = 0; final_prod[index]; index++)
+	{
+		if (final_prod[index] != 'x')
+			putchar(final_prod[index]);
+	}
+	putchar('\n');
+	free(nxt_prod);
+	free(final_prod);
+	return (0);
 }
