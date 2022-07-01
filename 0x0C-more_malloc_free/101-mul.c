@@ -1,9 +1,6 @@
 #include "main.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "main.h"
-#include <stdio.h>
-#include <stdlib.h>
 /**
  * get_len - gets the length of a string
  * @str: sting
