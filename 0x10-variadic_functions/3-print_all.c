@@ -1,4 +1,5 @@
 #include "variadic_functions.h"
+#include <stdbool.h>
 /**
  * print_all - prints anything
  * @format: different arguments passed
