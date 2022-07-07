@@ -34,7 +34,12 @@ void print_all(const char * const format, ...)
 			}
 			printf("%s", str);
 			break;
-		} x++;
+			if ((format[x] == 'c' || format[x] == 'i' || format[x] == 'f' ||
+			format[x] == 's') && format[(x + 1)] != '\0')
+			printf(", ");
+		} 
+		x++;
 	}
-	printf("\n"), va_end(list);
+	printf("\n"); 
+	va_end(list);
 }
