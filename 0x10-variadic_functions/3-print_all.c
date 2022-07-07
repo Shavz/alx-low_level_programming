@@ -1,46 +1,48 @@
 #include "variadic_functions.h"
-#include <stdbool.h>
 /**
- * print_all - prints anything
- * @format: different arguments passed
- * Return: void.
+ * print_all - Entry Point
+ * c = char, i = int, f = float, s = char * (if null print (nil))
+ * @format: list of arg types
+ * Return: 0
  */
-
 void print_all(const char * const format, ...)
 {
 	va_list list;
-	unsigned int x = 0;
+	int i = 0, j = 0;
+	char *sep = ", ";
 	char *str;
 
 	va_start(list, format);
-	while (format != NULL && format[x] != '\0')
+
+	while (format && format[i])
+		i++;
+
+	while (format && format[j])
 	{
-		switch (format[x])
+		if (j == (i - 1))
+		{
+			sep = "";
+		}
+		switch (format[j])
 		{
 		case 'c':
-			printf("%c", va_arg(list, int));
+			printf("%c%s", va_arg(list, int), sep);
 			break;
 		case 'i':
-			printf("%d", va_arg(list, int));
+			printf("%d%s", va_arg(list, int), sep);
 			break;
 		case 'f':
-			printf("%f", va_arg(list, double));
+			printf("%f%s", va_arg(list, double), sep);
 			break;
 		case 's':
 			str = va_arg(list, char *);
 			if (str == NULL)
-			{
-				printf("(nil)");
-				break;
-			}
-			printf("%s", str);
+				str = "(nil)";
+			printf("%s%s", str, sep);
 			break;
-			if ((format[x] == 'c' || format[x] == 'i' || format[x] == 'f' ||
-			format[x] == 's') && format[(x + 1)] != '\0')
-			printf(", ");
-		} 
-		x++;
+		}
+		j++;
 	}
-	printf("\n"); 
+	printf("\n");
 	va_end(list);
 }
