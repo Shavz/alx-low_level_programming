@@ -12,8 +12,8 @@ void free_listp2(listp_t **head)
 
 	if (head != NULL)
 	{
-		curr = *head;
-		while ((temp = curr) != NULL)
+		headcopy = *head;
+		while ((temp = headcopy) != NULL)
 		{
 			headcopy = headcopy->next;
 			free(temp);
