@@ -1,5 +1,4 @@
 #include "main.h"
-#include <stdio.h>
 /**
  * cp - copies source to desination
  * @file_from: from file
