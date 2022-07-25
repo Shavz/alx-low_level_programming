@@ -14,31 +14,21 @@ int cp(char *file_to, char *file_from)
 
 	fd = open(file_from, O_RDONLY);
 	if (fd < 0)
-	{
 		return (98);
-	}
 	td = open(file_to, O_CREAT | O_WRONLY | O_TRUNC, 0664);
 	if (td < 0)
-	{
 		return (99);
-	}
 	fr = read(fd, buffer, 1024);
 	if (fr < 0)
-	{
 		return (98);
-	}
 	while (fr > 0)
 	{
 		fw = write(td, buffer, fr);
 		if (fw < 0)
-		{
 			return (99);
-		}
 		fr = read(fd, buffer, 1024);
 		if (fr < 0)
-		{
 			return (98);
-		}
 	}
 	fc = close(fd);
 	if (fc < 0)
