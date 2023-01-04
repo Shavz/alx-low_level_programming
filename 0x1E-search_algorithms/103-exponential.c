@@ -1,93 +1,103 @@
 #include "search_algos.h"
 
-int binary_search(int *array, size_t size, int value);
-int recurse_helper(int *array, size_t left, size_t right, int value);
-
 /**
- * exponential_search - search array
- * @array: array to search
- * @size: size of array
- * @value: search value
+ * print_array - prints an array of integers
+ * @array: pointer to the start of the array
+ * @size: size of the array (number of elements)
  *
- * Return: index of matched value; -1 if not found
+ * Return: nothing
  */
-int exponential_search(int *array, size_t size, int value)
+void print_array(int *array, int size)
 {
-	size_t right = 1, left;
+	int i;
 
-	if (array == NULL)
-		return (-1);
+	if (array == NULL || size == 0)
+		return;
 
-	while (right < size && array[right] < value)
+	printf("Searching in array: ");
+
+	for (i = 0; i < size; i++)
 	{
-		printf("Value checked array[%lu] = [%d]\n", right, array[right]);
-		right *= 2;
+		if (i == 0)
+			printf("%d", array[i]);
+		else
+			printf(", %d", array[i]);
 	}
 
-	if (array[right] == value)
-		return (right);
-
-	left = right / 2; /* establish left bound */
-
-	if (right >= size) /* if right is out of bounds */
-		right = size - 1;
-
-	printf("Value found between indexes [%lu] and [%lu]\n", left, right);
-
-	return (recurse_helper(array, left, right, value));
+	printf("\n");
 }
 
 /**
- * binary_search - search for value in array of sorted ints
- * @array: array to search
- * @size: size of array
- * @value: value to search
+ * binary_search - find value in sorted array using binary search method
+ * @array: pointer to first element in array to be searched
+ * @size: size of the array (number of elements)
+ * @value: value to be searched for
  *
- * Return: index of found value; or -1 if not found
+ * Return: index position of value or -1 if not found or array is null
  */
 int binary_search(int *array, size_t size, int value)
 {
-	if (array == NULL)
+	int low = 0;
+	int high = size - 1;
+	int mid;
+
+	if (array == NULL || size == 0)
 		return (-1);
 
-	return (recurse_helper(array, 0, size - 1, value));
+	while (low <= high)
+	{
+		mid = low + (high - low) / 2;
+
+		print_array(&array[low], (high - low) + 1);
+
+		if (array[mid] == value)
+			return (mid);
+
+		if (array[mid] > value)
+			high = mid - 1;
+
+		else
+			low = mid + 1;
+	}
+
+	return (-1);
 }
 
 /**
- * recurse_helper - recursive implement of binary search
- * @array: array to search
- * @left: leftmost index
- * @right: rightmost index
- * @value: value to search
+ * exponential_search - search for a value in a sorted array using exponential
+ * search and binary search algorithms
+ * @array: pointer to the array to be searched
+ * @size: size of the array (number of elements)
+ * @value: the value to be searched for
  *
- * Return: index of found value; or -1 if not found
+ * Return: fist index value is found at or -1 if not present or array is null
  */
-int recurse_helper(int *array, size_t left, size_t right, int value)
+int exponential_search(int *array, size_t size, int value)
 {
-	size_t i = left, mid;
+	int lower_bound;
+	int upper_bound = 1;
+	int value_position;
 
-	if (left > right)
+	if (array == NULL || size == 0)
 		return (-1);
 
-	/* print search progress */
-	printf("Searching in array: %d", array[i++]);
-	while (i <= right)
-		printf(", %d", array[i++]);
-	printf("\n");
-
-	/* calculate mid */
-	mid = left + ((right - left) / 2);
-
-	/* check if mid is value */
-	if (array[mid] == value)
-		return (mid);
-	else if (array[mid] > value)
+	while (upper_bound < (int)size && array[upper_bound] < value)
 	{
-		if (mid != 0)
-			return (recurse_helper(array, left, mid - 1, value));
-		else
-			return (-1);
+		printf("Value checked array[%d] = [%d]\n", upper_bound, array[upper_bound]);
+		lower_bound = upper_bound;
+		upper_bound *= 2;
 	}
-	else
-		return (recurse_helper(array, mid + 1, right, value));
+
+	if (upper_bound >= (int)size)
+		upper_bound = size - 1;
+
+	printf("Value found between indexes [%d] and [%d]\n", lower_bound,
+	       upper_bound);
+	value_position = binary_search(&array[lower_bound],
+				       upper_bound - lower_bound + 1, value);
+
+	if (value_position != -1)
+		value_position += lower_bound;
+
+	return (value_position);
 }
